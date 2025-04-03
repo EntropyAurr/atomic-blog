@@ -60,7 +60,7 @@ function Header({ searchedPosts, onClearPosts, searchQuery, setSearchQuery }) {
 }
 
 function SearchPosts({ searchedPosts, setSearchQuery }) {
-  return <input value={searchedPosts} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search posts..." />;
+  return <input className="search" value={searchedPosts} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search posts..." />;
 }
 
 function Results({ searchedPosts }) {

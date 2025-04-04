@@ -1,18 +1,25 @@
 @import url("https://fonts.googleapis.com/css2?family=Alkatra:wght@400..700&family=Baloo+Bhai+2:wght@400..800&family=Berkshire+Swash&family=Doppio+One&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Patua+One&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Tilt+Warp&family=Titan+One&family=Tourney:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
 
+:root {
+  --btn-bg-color: #f79d65;
+}
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
 
-body {
-  font-family: "Ubuntu";
+html {
+  font-size: 62.5%;
+}
 
+body {
+  font-family: "Inter";
   color: #222;
   line-height: 1.25;
   background: #fff;
-  padding: 32px;
+  padding: 3.2rem;
 }
 
 .fake-dark-mode {
@@ -20,35 +27,39 @@ body {
   transition: all 0.5s;
 }
 
+.fake-dark-mode li:hover {
+  background-color: #e0e1dd;
+}
+
 .btn-fake-dark-mode {
   position: fixed;
   top: 0;
   right: 0;
-  padding: 16px;
+  padding: 1.6rem;
   line-height: 1;
-  font-size: 26px;
+  font-size: 2.6rem;
   background-color: #ffe8cc;
   border: none;
+  border-radius: 8px;
 }
 
 section {
-  max-width: 1140px;
-  margin: 0 auto;
+  max-width: 114rem;
+  margin: 5rem auto;
 }
 
 header {
-  margin-bottom: 32px;
-  font-weight: bold;
-
-  justify-content: space-between;
   display: flex;
+  justify-content: space-between;
+  margin-bottom: 3.2rem;
+  font-weight: bold;
 }
 
 h1 {
   font-family: "Alkatra";
-  font-size: 26px;
+  font-size: 2.6rem;
   display: flex;
-  gap: 8px;
+  gap: 0.8rem;
   align-items: center;
 }
 
@@ -59,55 +70,56 @@ h1 span {
 
 h2 {
   text-transform: uppercase;
-  margin-bottom: 24px;
+  margin-bottom: 2.4rem;
   color: #333;
 }
 
 h3 {
+  font-size: 2rem;
   text-transform: capitalize;
-  margin-bottom: 16px;
+  margin-bottom: 1.6rem;
   color: #333;
 }
 
 header div {
   display: flex;
-  gap: 32px;
+  gap: 3.2rem;
   align-items: center;
 }
 
 header button {
-  font-size: 14px;
+  font-size: 1.4rem;
 }
 
 form {
-  padding: 24px;
-  background-color: #fff4e6;
   display: flex;
-  gap: 24px;
-  margin-bottom: 40px;
+  gap: 2.4rem;
+  padding: 2.4rem;
+  background-color: #fff4e6;
+  margin-bottom: 4rem;
 }
 
 main {
-  margin-bottom: 40px;
+  margin-bottom: 4rem;
 }
 
 aside {
-  margin-bottom: 40px;
+  margin-bottom: 4rem;
   opacity: 75%;
 }
 
 input,
 textarea,
 button {
-  font-size: 16px;
-  padding: 8px 12px;
+  font-size: 1.7rem;
+  padding: 0.8rem 1.2rem;
   border: 1px solid #ffe8cc;
   font-family: inherit;
   color: inherit;
 }
 
-input {
-  width: 12rem;
+input .search {
+  width: 14rem;
 }
 
 *::placeholder {
@@ -115,26 +127,28 @@ input {
 }
 
 *:focus {
-  outline: 2px solid #ffa94d;
+  outline: 2px solid var(--btn-bg-color);
   border-radius: 2px;
 }
 
 textarea {
   flex: 1;
-  height: 50px;
+  height: 5rem;
 }
 
 button {
-  border: 1px solid #ffa94d;
-  background-color: #ffa94d;
-  font-weight: 700;
-  padding: 9px 24px;
   cursor: pointer;
+  border: 1px solid var(--btn-bg-color);
+  background-color: var(--btn-bg-color);
+  font-weight: 700;
+  padding: 0.9rem 2.4rem;
+  border-radius: 8px;
+  font-family: "Doppio One";
 }
 
 h3 {
   text-transform: capitalize;
-  margin-bottom: 16px;
+  margin-bottom: 1.6rem;
   color: #333;
 }
 
@@ -142,12 +156,12 @@ main ul {
   list-style: none;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 32px;
+  gap: 3.2rem;
 }
 
 main li {
   border: 1px solid #ffe8cc;
-  padding: 16px 20px;
+  padding: 1.6rem 2rem;
 }
 
 main li:hover {
@@ -159,22 +173,26 @@ aside ul {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 0.2rem;
 }
 
 aside li {
   border: 1px solid #ffe8cc;
-  padding: 4px 8px;
+  padding: 0.4rem 0.8rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 h2 + button {
-  margin-bottom: 24px;
+  margin-bottom: 2.4rem;
 }
 
 aside li button {
-  padding: 4px 8px;
-  font-size: 14px;
+  padding: 0.4rem 0.8rem;
+  font-size: 1.4rem;
+}
+
+p {
+  font-size: 1.7rem;
 }

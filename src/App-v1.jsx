@@ -1,30 +1,14 @@
-import { useState, useEffect, createContext, useContext } from "react";
+import { useState, useEffect } from "react";
 import { faker } from "@faker-js/faker";
+import { PostProvider, usePosts } from "./PostContext";
 
 function createRandomPost() {
   return { title: `${faker.hacker.adjective()} ${faker.hacker.noun()}`, body: faker.hacker.phrase() };
 }
 
-// 1) CREATE A NEW CONTEXT
-const PostContext = createContext();
-
 export default function App() {
-  const [posts, setPosts] = useState(() => Array.from({ length: 30 }, () => createRandomPost()));
-
-  const [searchQuery, setSearchQuery] = useState("");
   const [isFakeDark, setIsFakeDark] = useState(false);
 
-  const searchedPosts = searchQuery.length > 0 ? posts.filter((post) => `${post.title} ${post.body}`.toLowerCase().includes(searchQuery.toLowerCase())) : posts;
-
-  function handleAddPost(post) {
-    setPosts((posts) => [post, ...posts]); // an updater function
-  }
-
-  function handleClearPosts() {
-    setPosts([]);
-  }
-
-  // Whenever `isFakeDark` changes, we toggle the `fake-dark-mode` class on the HTML element (see in "Elements" dev tool).
   useEffect(
     function () {
       document.documentElement.classList.toggle("fake-dark-mode");
@@ -33,33 +17,24 @@ export default function App() {
   );
 
   return (
-    // 2) PROVIDE VALUE TO THE CHILD COMPONENTS
-    <PostContext.Provider
-      value={{
-        searchedPosts: searchedPosts,
-        onAddPosts: handleAddPost,
-        onClearPosts: handleClearPosts,
-        searchQuery,
-        setSearchQuery,
-      }}
-    >
-      <section>
-        <button onClick={() => setIsFakeDark((isFakeDark) => !isFakeDark)} className="btn-fake-dark-mode">
-          {isFakeDark ? "☀️" : "🌙"}
-        </button>
+    <section>
+      <button onClick={() => setIsFakeDark((isFakeDark) => !isFakeDark)} className="btn-fake-dark-mode">
+        {isFakeDark ? "☀️" : "🌙"}
+      </button>
 
+      <PostProvider>
         <Header />
         <Main />
         <Archive />
         <Footer />
-      </section>
-    </PostContext.Provider>
+      </PostProvider>
+    </section>
   );
 }
 
 function Header() {
   // 3) CONSUMING THE CONTEXT VALUE
-  const { onClearPosts } = useContext(PostContext);
+  const { onClearPosts } = usePosts();
 
   return (
     <header>
@@ -77,13 +52,13 @@ function Header() {
 }
 
 function SearchPosts() {
-  const { searchQuery, setSearchQuery } = useContext(PostContext);
+  const { searchQuery, setSearchQuery } = usePosts();
 
   return <input className="search" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search posts..." />;
 }
 
 function Results() {
-  const { searchedPosts } = useContext(PostContext);
+  const { searchedPosts } = usePosts();
 
   return <p>🚀 {searchedPosts.length} atomic posts found</p>;
 }
@@ -106,7 +81,7 @@ function Posts() {
 }
 
 function FormAddPost() {
-  const { onAddPosts } = useContext(PostContext);
+  const { onAddPosts } = usePosts();
 
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
@@ -131,7 +106,7 @@ function FormAddPost() {
 }
 
 function List() {
-  const { searchedPosts } = useContext(PostContext);
+  const { searchedPosts } = usePosts();
 
   return (
     <ul>
@@ -146,7 +121,7 @@ function List() {
 }
 
 function Archive() {
-  const { onAddPosts } = useContext(PostContext);
+  const { onAddPosts } = usePosts();
 
   const [post] = useState(() => Array.from({ length: 77 }, () => createRandomPost()));
   // Here we don't need the setter function. We're only using state to store these posts because the callback function passed into useState (which generates the posts) is only called once, on the initial render. So we use this trick as an optimization technique, because if we just used a regular variable, these posts would be re-created on every render. We could also move the posts outside the components, but I wanted to show you this trick

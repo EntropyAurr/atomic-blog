@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import { faker } from "@faker-js/faker";
 import { PostProvider, usePosts } from "./PostContext";
-import Test from "./Test";
 
 function createRandomPost() {
   return { title: `${faker.hacker.adjective()} ${faker.hacker.noun()}`, body: faker.hacker.phrase() };
@@ -64,14 +63,14 @@ function Results() {
   return <p>🚀 {searchedPosts.length} atomic posts found</p>;
 }
 
-function Main() {
+const Main = memo(function Main() {
   return (
     <main>
       <FormAddPost />
       <Posts />
     </main>
   );
-}
+});
 
 function Posts() {
   return (
@@ -119,8 +118,6 @@ function List() {
           </li>
         ))}
       </ul>
-
-      {/* <Test /> */}
     </>
   );
 }
